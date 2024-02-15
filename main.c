@@ -63,7 +63,6 @@ void push(float value) {
     stack[0] = value;
 }
 
-
 void sum(void) {
     push(pop() + pop());
 }
@@ -115,7 +114,6 @@ void square_root(void) {
     push(sqrt(x));
 }
 
-
 int main() {
 
     bool running = true;
@@ -158,16 +156,16 @@ int main() {
             case '^':
                 power();
                 break;
-            case 'c': //cosine
+            case 'c':
                 cosine();
                 break;
-            case 's': //sine
+            case 's':
                 sine();
                 break;
-            case 't': //tangent
+            case 't':
                 tangent();
                 break;
-            case 'r': //square root
+            case 'r':
                 square_root();
                 break;
             case 10:
