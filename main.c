@@ -4,6 +4,8 @@
 #include <string.h>
 #include <ncurses.h>
 
+
+
 //Calculadora notación polaca inversa con stack
 float stack[8];
 
@@ -39,13 +41,50 @@ void printScreen(bool using_buffer, char *buffer) {
     }
     
     printw("\n");
-    printw("[+] Sum [*] Mul [^] Pow [s] Sin  [r]  Sqrt\n");
-    printw("[-] Sub [/] Div [c] Cos [t] Tan [del] Exit\n");
+    printw("[+] Sum [*] Mul [^] Pow [s] Sin  [r]  Sqrt [l] load \n");
+    printw("[-] Sub [/] Div [c] Cos [t] Tan [del] Exit [w] write\n");
     if (using_buffer) {
         printw("Enter the value and press Enter\n");
     }
     
 
+}
+
+void loadStack(void) {
+    echo();
+    keypad(stdscr, FALSE);
+    nocbreak();
+    clear();
+    printw("Enter path to file: ");
+    char path[128];
+    getstr(path);
+    FILE *file = fopen(path, "r");
+    //each line is a number
+    for (int i = 0; i < 8; i++) {
+        fscanf(file, "%f", &stack[i]);
+    }
+    fclose(file);	
+    noecho();
+    keypad(stdscr, TRUE);
+    cbreak();
+}
+
+void saveStack(void) {
+    echo();
+    keypad(stdscr, FALSE);
+    nocbreak();
+    clear();
+    printw("Enter path to file: ");
+    char path[128];
+    getstr(path);
+    FILE *file = fopen(path, "w");
+    for (int i = 0; i < 8; i++) {
+        fprintf(file, "%f\n", stack[i]);
+    }
+    fclose(file);
+    noecho();
+    keypad(stdscr, TRUE);
+    cbreak();
 }
 
 float pop(void) {
@@ -168,6 +207,15 @@ int main() {
             case 'r':
                 square_root();
                 break;
+
+            case 'l':
+                loadStack();
+                break;
+            
+            case 'w':
+                saveStack();
+                break;
+
             case 10:
                 clear();
                 printScreen(true,buffer);
