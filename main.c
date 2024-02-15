@@ -37,7 +37,7 @@ void printScreen(bool using_buffer, char *buffer) {
     }
     
     printw("\n");
-    printw("[+] Sum [*] Mul [^] Pow [s] Sin  [r]  Sqrt [l] load \n");
+    printw("[+] Sum [*] Mul [p] Pow [s] Sin  [r]  Sqrt [l] load \n");
     printw("[-] Sub [/] Div [c] Cos [t] Tan [del] Exit [w] write\n");
     if (using_buffer) {
         printw("Enter the value and press Enter\n");
@@ -187,7 +187,7 @@ int main() {
                 divs();
                 break;
 
-            case '^':
+            case 'p':
                 power();
                 break;
             case 'c':
