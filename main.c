@@ -4,13 +4,11 @@
 #include <string.h>
 #include <ncurses.h>
 
-//Calculadora notación polaca inversa con stack
 float stack[8];
 
 int point = 0; //posicion actual del cursor en el stack
 
 void printScreen(bool using_buffer, char *buffer) {
-    //imprime parte superior del tamaño actual de la pantalla
     int i = 0;
     
     printw("==============RPN Calculator==============\n\n");
@@ -57,7 +55,6 @@ void loadStack(void) {
     char path[128];
     getstr(path);
     FILE *file = fopen(path, "r");
-    //each line is a number
     for (int i = 0; i < 8; i++) {
         fscanf(file, "%f", &stack[i]);
     }
