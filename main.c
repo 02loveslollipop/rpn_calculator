@@ -13,7 +13,8 @@ void printScreen(bool using_buffer, char *buffer) {
     //imprime parte superior del tamaño actual de la pantalla
     int i = 0;
     
-    printw("======RPN Calculator======\n\n");
+    printw("==============RPN Calculator==============\n\n");
+
 
     if(!using_buffer){
         for (i = 7; i >= 0; i--) {
@@ -38,7 +39,7 @@ void printScreen(bool using_buffer, char *buffer) {
     }
     
     printw("\n");
-    printw("[+] Sum [*] Mul [^] Pow [s] Sin  [r]  Sqrt \n");
+    printw("[+] Sum [*] Mul [^] Pow [s] Sin  [r]  Sqrt\n");
     printw("[-] Sub [/] Div [c] Cos [t] Tan [del] Exit\n");
     if (using_buffer) {
         printw("Enter the value and press Enter\n");
@@ -46,6 +47,74 @@ void printScreen(bool using_buffer, char *buffer) {
     
 
 }
+
+float pop(void) {
+    float value = stack[0];
+    for (int i = 0; i < 7; i++) {
+        stack[i] = stack[i + 1];
+    }
+    return value;
+}
+
+void push(float value) {
+    for (int i = 7; i > 0; i--) {
+        stack[i] = stack[i - 1];
+    }
+    stack[0] = value;
+}
+
+
+void sum(void) {
+    push(pop() + pop());
+}
+
+void sub(void) {
+    float x = pop();
+    float y = pop();
+    push(y - x);
+}
+
+void mult(void) {
+    push(pop() * pop());
+}
+
+void divs(void) {
+    float x = pop();
+    float y = pop();
+    if (x == 0) {
+        push(0);
+        printf("Math Error\n");
+    }
+    push(y / x);
+}
+
+void power(void) {
+    float x = pop();
+    float y = pop();
+    push(pow(y, x));
+}
+
+void cosine(void) {
+    push(cos(pop()));
+}
+
+void sine(void) {
+    push(sin(pop()));
+}
+
+void tangent(void) {
+    push(tan(pop()));
+}
+
+void square_root(void) {
+    float x = pop();
+    if (x < 0) {
+        push(0);
+        printf("Math Error\n");
+    }
+    push(sqrt(x));
+}
+
 
 int main() {
 
@@ -73,33 +142,33 @@ int main() {
                 }
                 break;
             case '+':
-                //TODO: Implementar la operación de suma
+                sum();
                 break;
             case '-':
-                //TODO: Implementar la operación de resta
+                sub();
                 break;
             
             case '*':
-                //TODO: Implementar la operación de multiplicación
+                mult();
                 break;
             case '/':
-                //TODO: Implementar la operación de división
+                divs();
                 break;
 
             case '^':
-                //TODO: Implementar la operación de potencia
+                power();
                 break;
             case 'c': //cosine
-                //TODO: Implementar la operación de coseno
+                cosine();
                 break;
             case 's': //sine
-                //TODO: Implementar la operación de seno
+                sine();
                 break;
             case 't': //tangent
-                //TODO: Implementar la operación de tangente
+                tangent();
                 break;
             case 'r': //square root
-                //TODO: Implementar la operación de raíz cuadrada
+                square_root();
                 break;
             case 10:
                 clear();
