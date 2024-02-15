@@ -4,8 +4,6 @@
 #include <string.h>
 #include <ncurses.h>
 
-
-
 //Calculadora notación polaca inversa con stack
 float stack[8];
 
